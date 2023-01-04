@@ -1,0 +1,235 @@
+\documentclass[a4paper]{paper} 
+\usepackage{babel}  
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{natbib}
+\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\sloppy
+
+%% <---------------- fill according to your paper ----------------
+\newcommand{\StudentName}{Uttam Asodariya}
+\newcommand{\StudentMatrikelNumber}{22930402}
+\newcommand{\PaperTitle}{Assessing effects of sex, age and ethnicity confounders on Co expression network inference.}
+\newcommand{\AuthorList}{Guided By: M.Sc. Pérez Toro Paula Andrea}
+
+
+}
+%% <--------------------------------------------------------------
+
+\sectionfont{\large\sf\bfseries\color{black!70!blue}} 
+\title{Project Biomedical Network Science}
+\subtitle{Written Report\\
+\hfill\includegraphics[height=2.4cm]{fau-logo-right}
+\vspace{-2cm}}
+\author{\StudentName\\
+\normalsize{Matrikel Number: {\StudentMatrikelNumber}}}
+\begin{document} 
+\twocolumn[\maketitle 
+\textbf{\PaperTitle} \\ 
+\AuthorList \\
+\hrule\bigskip
+]
+
+%% <--------------------------------------------------------------
+%% <--------------------------------------------------------------
+
+\section{Introduction} 
+In Bio-informatics applications, there are multiple tools which are used for the network analysis which describes the correlation patterns between the genes. These networks are further subdivided into Regulatory networks and Co-expression networks. Here we have studied these tools to assess to what extent are these high computational tools robust w.r.t data biases induced by the confounders such as age, sex, and ethnicity. This involves investigating the effects these confounders have on the gene regulatory as well as on the co-expression network.
+
+\subsection{Previous Study}
+In the past research, it has been found that there is a mounting evidence for molecular differences between the genders and also the age groups. This often results in substandard treatment for women patients and high risk age groups since the systems biology approaches developed are carried out in sex or age agnostic way. This is also true for ethnicity as evidence show that people from marginalised communities and from developing nations are vastly under-represented in clinical trials/access to medical care, which results in unavailability of data for certain ethnicity and races. 
+
+\begin{flushleft}This study also compels us to find out if there is indeed any truth into the biasedness due to confounders on systems biology tools. Therefore we have taken this project to come to a practical conclusion and also to research further in this domain. 
+ \end{flushleft}
+ 
+\section{Scientific Context} 
+The data which enables this project is based upon the human gene expression. To understand the science behind it we have to understand a little biology about the inner working of the gene. 
+\begin{flushleft}
+\textbf{DNA transcription and translation}: Transcription is the first step in gene expression, in which information from a gene is used to construct a functional product such as a protein. The goal of transcription is to make a RNA copy of a gene's DNA sequence. For a protein-coding gene, the transcript, carries the information needed to build a protein or protein sub-unit. 
+\end{flushleft}
+\begin{flushleft}
+ During translation, a cell reads the information in an mRNA and uses it to build a protein. Technically, an mRNA doesn’t always encode/provide instructions for a whole protein. Instead, it encodes a polypeptide, or chain of amino acids.
+\end{flushleft}
+
+\begin{flushleft}
+\textbf{Gene regulatory network}: A gene regulatory network (GRN) is a collection of molecular regulators that interact with each other and with other substances in the cell to govern the gene expression levels of mRNA and proteins which, in turn, determine the function of the cell. It is a directed graph in which regulators of gene expression are connected to target gene nodes by interaction edges. Regulators of gene expression include transcription factors (TF) which can act as activators and repressors.
+\end{flushleft}
+
+\begin{flushleft}
+\textbf{Gene Co-expression network}: A gene co-expression network (GCN) is an un-directed graph, where each node corresponds to a gene, and a pair of nodes is connected with an edge if there is a significant co-expression relationship between them. A GCN can be constructed by looking for pairs of genes which show a similar expression pattern across samples.
+\end{flushleft}
+
+\bigskip
+
+Compared to a GRN, a GCN does not attempt to infer the causality relationships between genes and in a GCN the edges represent only a correlation or dependency relationship among genes.
+
+\section{Systems Biology Tools}
+
+\begin{flushleft}
+\textbf{WGCNA}: A Weighted correlation network analysis (WGCNA) is a co-expression network analysis tool written in R language. It has functions ranging from creating the gene network, correlation parameters, to creation of clusters based on similarity index. The primary function concerned with our project for assessing the network, we implement and use the function which creates the gene co-expression network. 
+\end{flushleft}
+
+\begin{flushleft}
+\textbf The tool takes gene samples and patient phenotype as an input with rows and columns.A network is fully given by its adjacency matrix $a_{i,j}$, a symmetric n × n matrix with entries as 0 or 1, with 1 specifying an edge and 0 as no edge, i.e, component $a_{i,j}$ encodes the network connection path between nodes i and j. To calculate the adjacency matrix, an intermediate quantity called the co-expression similarity $s_{i,j}$ is first defined. The method defines the co-expression similarity $s_{i,j}$ as the absolute value of the correlation coefficient between the nodes i and j:
+\end{flushleft}
+\begin{align}
+s_{i,j} = \mid cor(x_{i},x_{j})\mid
+\end{align}
+ Using a thresholding procedure, the co-expression similarity is transformed into the adjacency. An unweighted
+network adjacency $a_{i,j}$ between gene expression profiles $x_{i}$
+and $x_{j}$ can be defined by hard thresholding the co-expression similarity $s_{i,j}$ as 
+\begin{align}
+a_{i,j} = \begin{cases}1 & s_{i,j} \geq\tau\\0& otherwise\end{cases}
+\end{align}
+
+ \bigskip
+ 
+ \begin{flushleft}
+\textbf{CEMi}: CEMi tool is an extension to the WGCNA tool such as it outperforms it on computational level. Some of the features where it is better in comparison to WGCNA are:  evaluates whether modules contain genes that are over-represented by specific pathways or that are altered in a specific sample group, as well as it integrates transcriptomic data with interactome information. 
+\end{flushleft}
+
+ \begin{flushleft}
+If one chooses to use soft thresholding instead of hard thresholding, CEMi tool fares much better as they created a new algorithm based upon Cauchy sequence. This ensures that the results are more consistent and reliable. CEMi tool also implements an unsupervised filtering based on the inverse gamma distribution feature where it filters the genes used in the analysis. To remove potential noise, CEMi tool also removes by default the 25 percent genes with lowest mean expression across all samples prior to filtering.
+\end{flushleft}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{img1}
+    \caption{ \textbf{[LPH] WGCNA methodology} \textit{This flowchart presents a brief overview of the steps of WGCNA}}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}[t]
+    \includegraphics[width=0.9\linewidth]{image2}
+    \caption{ \textbf{[RFCB] CEMi methodology} \textit{CEMi Tool flowchart}}
+    \label{fig:my_label}
+\end{figure}
+
+\section{Methodology}
+\subsection{Dataset}
+ We have used human gene dataset from TCGA i.e, The Cancer Genome Atlas. This was specifically chosen because the data  deposited in TCGA are annotated for sex, age, and ethnicity along with other parameters. This enables to assess the impact of the confounders on the obtained results.
+
+\noindent The confounders chosen for the project are: age, sex and ethnicity. It has long been observed that these confounders do play an important role in many pathomechanisms, but a systematic assessment of their impact in the context of computational systems biology is
+missing. As an example, in the TCGA cancer types, most of the race reported are 'white', this may imply that the systems biology results might not generalise well with other patient groups and this is what we intend to analyse in the project. 
+
+\bigskip
+\noindent The cohorts we have chosen for the project are: BLCA(bladder), SKCM(melanoma) and COAD(colon). The reason for this selection is because these cancer cohorts are applicable to all confounders. As an example, we cannot choose breast cancer as a cohort since the cancer is equal to null in male patients.
+In another instance, it has been hypothesized that in elderly bladder cancer patients, epigenetic events play a larger role than in younger patients. This might necessitate age-specific systems biology analysis of omics data. This needs to be analysed if age influences this hypothesis.
+
+
+\subsection{Partition}
+We partition the patients in the gene dataset into the corresponding patient groups. Moreover, for each confounder, we have generated n random partitions, we have chosen n=1000 whose patient groups are size-matched to the patient groups in the partition induced by the confounder. 
+
+\bigskip
+\noindent As an initial step, we normalized the genes and did some pre-processing where we eliminated certain samples with missing values, erroneous data to make sure that the dataset is properly aligned so that the input into the tools are of the right order in the way the tool expects. 
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.1\linewidth]{img3}
+    \caption{ \textbf{Pipeline} \textit{Flow of the testing pipeline}}
+    \label{fig:my_label}
+\end{figure}
+\subsection{Testing the tool}
+After the confounder block partition and randomly selected partition for each founder, we have run the selected tools separately on all patient groups of all n + 1 partitions and computed all pairwise similarities of the results.
+
+\bigskip
+\noindent From the tools, based on the algorithm and the functionality of the tools, we obtain the adjacency matrix which is about the correlation between the genes based upon the tool algorithm. This adjacency matrix is then converted into the edge list for further processing and analysis. 
+
+\bigskip
+\noindent The edge list from the confounders and also the random partitions are then studied using the similarity feature. For the similarity measure we have used the Jaccard Index. It indicates the similarity of blocks within one partition i.e, it takes into account all the random partitions, calculates the mean of it and then compares the top edges between it and the confounder partition. 
+
+\begin{align}
+JI_{ij,k} =\frac{\left[ intersection\right]_{ji,k}}{\left[ union\right]_{ji,k}}
+\end{align}
+
+If there are more than two blocks in the partition then, :
+
+\begin{align}
+ \frac{\sum_i\sum_j JI_{ij,k}}{numberOfBlocks}
+\end{align}
+
+
+\subsection{Algorithm}
+\textbf{Testing}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.2\linewidth]{img4}
+    \caption{ \textbf{Testing algorithm} \textit{Flow of the testing algorithm}}
+    \label{fig:my_label}
+\end{figure}
+
+\textbf{Mean JI}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\linewidth]{img5}
+    \caption{ \textbf{Mean JI algorithm} \textit{Flow of the JI algorithm}}
+    \label{fig:my_label}
+\end{figure}
+\section{Results}
+We ran the tools for each of the cohorts and for all the three confounders on the HPC nodes to obtain the edge lists. The TCGA gene dataset had more than 40,000 gene samples which was not possible to run for all the cohorts and for all the three confounders due to limited memory available. Hence we decided to include simply the protein coding gene samples instead of all the gene samples since the majority of RNA sequences originate in protein coding genes. This simplified the timing and the memory constraints. 
+
+\bigskip
+\noindent
+From the plots we obtained after the similarity index comparison, we found that the similarities for the confounder-induced partitions are significantly smaller than those for the random partitions, this
+implies that the scrutinized method does not generalize well.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{wgcna_res}
+    \caption{ \textbf{WGCNA:} \textit{Plot of WGCNA BLCA cohort similarity}}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.2\linewidth]{cemi_res}
+    \caption{ \textbf{CEMi:} \textit{Plot of CEMi BLCA cohort similarity}}
+    \label{fig:my_label}
+\end{figure}
+
+\section{Conclusion}
+We studied and analysed the impact of confounders such as age, sex and ethnicity on the systems biology tools. We find that the biological approaches cannot be generalised since they are not robust which entails that the underrepresented patient groups might not equally benefit from potential translational results (e.g., new causally
+effective treatments).
+
+\bigskip
+
+\noindent In future scope, we can investigate more confounders such as "cancer stage" and other available cohorts in the TCGA dataset such as "CHOL", "LCML" etc. Assessing more cohorts and confounders will help to analyse and come to a better and concrete conclusion which may help this result to translate into real world medical clinical trials. 
+
+%% <--------------------------------------------------------------
+%% <--------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\bigskip
+
+\noindent [RFCB] Russo, P. S., Ferreira, G. R., Cardozo, L. E., Bürger, M. C., Arias-Carrasco, R., Maruyama, S. R., Hirata, T. D., Lima, D. S.,
+Passos, F. M., Fukutani, K. F., Lever, M., Silva, J. S.,
+Maracaja-Coutinho, V., amp; Nakaya, H. I. (2018). CEMiTool: A
+bioconductor package for performing comprehensive modular
+co-expression analyses. BMC Bioinformatics, 19(1).
+
+\bigskip
+
+\noindent[LPH] Langfelder, P., amp; Horvath, S. (2008). WGCNA: An R package for weighted correlation network analysis. BMC Bioinformatics,
+9(1)
+
+\bigskip
+
+\noindent The human transcription factors, http://humantfs.ccbr.utoronto.ca/
+
+\bigskip
+
+\noindent Hugo gene nomenclature committee,
+https://www.genenames.org/download/statistics-and-files/
+
+\bigskip
+
+\noindent Wikipedia
+https://www.wikipedia.org
+
+\end {document}
