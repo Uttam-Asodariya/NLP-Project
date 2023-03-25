@@ -50,25 +50,25 @@ There are also different methods for word embedding. EX:Bag of Word, TF-IDF, Wor
 
  - Sum of last six encoder gives good word embedding. This can be deduced by trying couple of combination. Currently there is n*768; n is words in sentence. Entropy is useful to convert n dim to 1*768. 
 
- '''
+ ---
  tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
- '''
+ ---
 
- '''
+ ---
  Roberta= RobertaModel.from_pretrained('roberta-base',output_hidden_states=True)
- '''
+ ---
  ## Classification Model
  - These word embedding can be used for our classification task. We already have our dataset splited into train and test. Good classification model can be identified by evaluating couple of models on test set. Model result can be observed by using metrics of accuracy score.
 
- '''
+ ---
  Gaussian = GaussianProcessClassifier(kernel=1.0 * RBF(0.7),random_state=0,max_iter_predict=500)
- '''
+ ---
 
- '''
+ ---
  metrics.accuracy_score(y_test,y_pred)
 
  #output: 0.65
- '''
+ ---
 
 # Desclaimer
 - The notebook is created based on current information and available sources. There is still chances of improvment in the future. Any feedback regarding this note book is morethan welcome.
