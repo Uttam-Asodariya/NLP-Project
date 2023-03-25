@@ -1,5 +1,12 @@
 ## Description
-- This project is about word embedding. In this project we mostly use
+- Nowadays, Natural language processing(NLP) become hot topic of research, as it is useful in text processing. NLP has a also useful to transfer word to vector. It is known as word embedding.  In this project focused mostly on word embedding of alzheimer disease. we convert sentences of alzheimers'patient to vector. Classification can be done by using these embeddings.
+
+## Getting Started
+- For this task, the basic following python libraries are required.
+
+1.[pandas](https://pandas.pydata.org/docs/)
+2.[Numpy](https://numpy.org/doc/stable/)
+3.[pytorch]()
 
 
 ## The word embedding
