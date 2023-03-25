@@ -11,7 +11,7 @@ There are also different methods for word embedding. EX:Bag of Word, TF-IDF, Wor
 
 - BERT has an advantage compared to other methods. BERT create word reperentation dynamically informed by it's surrounded words. On the other hand, methods like Word2Vec have only similar represenataion for words.
 
-Let's take example. 1) "The new lamp had good light for reading"
+  Let's take example. 1) "The new lamp had good light for reading"
                     2) "Magnesium is a light metal.
 
 - Here, Word2Vec create same embedding for "light" word, Whereas the meaning is different. On the otherhand BERT create vary embedding for each sentence. Therefor BERT word embedding capture good information about content that result in more accurate feature representations, which in the end help to performe model better. 
@@ -36,8 +36,6 @@ Let's take example. 1) "The new lamp had good light for reading"
 
 - There is two different format of datasets. Firstly, AD(Alzheimer Disease) and HC(Healthy Control). These two dataset contains excel files according patients id, which contains description of the 'Cookie theft' picture.
 
-- ![Cookie Theft picture](C:\Users\uttam\OneDrive\Desktop\NLP Project\NLP-Project\Boston-cookie-theft-description-task-Participants-were-asked-to-describe-all-events-in.png)
-
 - On the other hand, there is also two csv files namely AD-Description and HC-Desciption which contains description of these patients.
 
 ## Pre-processing
@@ -53,23 +51,23 @@ Let's take example. 1) "The new lamp had good light for reading"
  - Sum of last six encoder gives good word embedding. This can be deduced by trying couple of combination. Currently there is n*768; n is words in sentence. Entropy is useful to convert n dim to 1*768. 
 
  '''
-tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
+ tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
  '''
 
-'''
-Roberta= RobertaModel.from_pretrained('roberta-base',output_hidden_states=True)
-'''
+ '''
+ Roberta= RobertaModel.from_pretrained('roberta-base',output_hidden_states=True)
+ '''
  ## Classification Model
  - These word embedding can be used for our classification task. We already have our dataset splited into train and test. Good classification model can be identified by evaluating couple of models on test set. Model result can be observed by using metrics of accuracy score.
 
  '''
-Gaussian = GaussianProcessClassifier(kernel=1.0 * RBF(0.7),random_state=0,max_iter_predict=500)
+ Gaussian = GaussianProcessClassifier(kernel=1.0 * RBF(0.7),random_state=0,max_iter_predict=500)
  '''
 
  '''
-metrics.accuracy_score(y_test,y_pred)
+ metrics.accuracy_score(y_test,y_pred)
 
-#output: 0.65
+ #output: 0.65
  '''
 
 # Desclaimer
