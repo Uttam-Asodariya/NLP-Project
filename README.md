@@ -4,9 +4,9 @@
 ## Getting Started
 - For this task, the basic following python libraries are required.
 
-1.[pandas](https://pandas.pydata.org/docs/)
-2.[Numpy](https://numpy.org/doc/stable/)
-3.[pytorch]()
+- 1.[pandas](https://pandas.pydata.org/docs/)
+- 2.[Numpy](https://numpy.org/doc/stable/)
+- 3.[pytorch]()
 
 
 ## The word embedding
