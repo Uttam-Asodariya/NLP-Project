@@ -57,6 +57,7 @@ There are also different methods for word embedding. EX:Bag of Word, TF-IDF, Wor
  ---
  Roberta= RobertaModel.from_pretrained('roberta-base',output_hidden_states=True)
  ---
+ 
  ## Classification Model
  - These word embedding can be used for our classification task. We already have our dataset splited into train and test. Good classification model can be identified by evaluating couple of models on test set. Model result can be observed by using metrics of accuracy score.
 
