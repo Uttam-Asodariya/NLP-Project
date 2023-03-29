@@ -22,7 +22,7 @@
 - This project mostly focused on the word embedding of sentences of an Alzheimer's patient by using Roberta, which is a variation of BERT. Classification can be done by using these embeddings.
 
 
-## Getting Started
+# Getting Started
 - For this task, the following basic Python libraries are required: In addition, it is important to load a Word embedding model such as Roberta, Electra, and so on.
 
 - 1.[Pandas](https://pandas.pydata.org/docs/)
