@@ -75,7 +75,6 @@ model = make_pipeline(MinMaxScaler(), Classification_model)
 ```
 # Feature Importance
 
-
 - Analysis.ipynb notebook is the second part of this project. where the second data type is used. The dataset is located in the Data folder with the names AD-Description and HC-Description. The same methods previously mentioned were used for classification, including cross-validation.
 
 - Using the permutation importance library, connected parameters with Alzeihmer can be observed. In addition, scatter plots provide important visualizations relating to AD and HC.
