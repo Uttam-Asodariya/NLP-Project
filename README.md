@@ -71,7 +71,7 @@ model = make_pipeline(MinMaxScaler(), Classification_model)
 ```
  metrics.accuracy_score(y_test,y_pred)
 
- #output: ~ 0.57
+ #Accuracy: ~ 57%
 ```
 # Feature Importance
 
@@ -80,6 +80,8 @@ model = make_pipeline(MinMaxScaler(), Classification_model)
 - Using the permutation importance library, connected parameters with Alzeihmer can be observed. In addition, scatter plots provide important visualizations relating to AD and HC.
 
 ```
+# Accuracy: ~ 90%
+
 # output of weight Permutation importance
 Weight         | Feature
 0.4681 ± 0.1132| MMSE_Pitt
