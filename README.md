@@ -14,8 +14,8 @@
 
 - BERT has an advantage compared to other methods. Bert creates word representations that are dynamically informed by their surrounding words. On the other hand, methods like Word2Vec have only similar representations for words.
 
-- Let's take an example. 1) "The new lamp had good light for reading."
-                         2) "Magnesium is a light metal.
+- Let's take an example. 1) The new lamp had good light for reading.
+                         2) Magnesium is a light metal.
 
 - Here, Word2Vec create same embedding for "light" word, Whereas the meaning is different. On the other hand, BERT creates varying embeddings for each sentence. Therefore, BERT word embedding captures good information about content that results in more accurate feature representations, which in the end helps the model perform better.
 
@@ -46,7 +46,7 @@
 - Note: For the test set, we cannot take mixed sentences from different files. So initially, we isolated 20% of the csv files into a newly created test folder.
 
 
-## Roberta Model 
+## Word Embedding: Roberta Model 
 - Now, tokenizers help tokenize the words of each sentence and use the Roberta model to convert each tokenized sentence to get the word embedding of it. The architecture of the Roberta model is as follows: Base: Number of transformer blocks: 12, Hidden layer size: 768, Attention heads: 12. The total length of each token embedding is 768. Robrta has 12 layers, so there are a total of 12 different representations of each token with 768 bytes.
 
 
@@ -61,16 +61,30 @@
  ```
  
  ## Classification Model
- - These word embeddings can be used for our classification task. We already have our dataset split into trains and tests. Good classification model can be identified by evaluating couple of models on test set. A Support vwctor classification (SVC) is useful in this uncertain environment.
+ - These word embeddings can be used for our classification task. We already have our dataset split into trains and tests. Good classification model can be identified by evaluating couple of models on test set. A  AdaBoostClassifier is useful in this uncertain environment.
 
  ```
- SVC_model = SVC(gamma=2, C=1)
+Classification_model = AdaBoostClassifier(n_estimators=100, random_state=0)
+model = make_pipeline(MinMaxScaler(), Classification_model)
  ```
 - Model result can be observed by using metrics of accuracy score.
 ```
  metrics.accuracy_score(y_test,y_pred)
 
  #output: ~ 0.57
+```
+# Feature Importance
+
+
+- Analysis.ipynb notebook is the second part of this project. where the second data type is used. The dataset is located in the Data folder with the names AD-Description and HC-Description. The same methods previously mentioned were used for classification, including cross-validation.
+
+- Using the permutation importance library, connected parameters with Alzeihmer can be observed. In addition, scatter plots provide important visualizations relating to AD and HC.
+
+```
+# output of weight Permutation importance
+Weight         | Feature
+0.4681 ± 0.1132| MMSE_Pitt
+0.0585 ± 0.0117| Age
 ```
 
 # Desclaimer
