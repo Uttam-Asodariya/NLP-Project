@@ -50,7 +50,7 @@
 - Now, tokenizers help tokenize the words of each sentence and use the Roberta model to convert each tokenized sentence to get the word embedding of it. The architecture of the Roberta model is as follows: Base: Number of transformer blocks: 12, Hidden layer size: 768, Attention heads: 12. The total length of each token embedding is 768. Robrta has 12 layers, so there are a total of 12 different representations of each token with 768 bytes.
 
 
-- The sum of the last six encoders gives good word embedding. This can be deduced by trying a couple of combinations. Currently there is n*768; n is words in sentence. Mean/Entropy is useful to convert n dim to 1*768.
+- The sum of the last six encoders gives good word embedding. This can be deduced by trying a couple of combinations. Currently there is n*768; n is words/tokens in sentence. Mean/Entropy is useful to convert n dim tensor to 1*768 .
 
  ```
  tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
@@ -61,16 +61,16 @@
  ```
  
  ## Classification Model
- - These word embeddings can be used for our classification task. We already have our dataset split into trains and tests. Good classification model can be identified by evaluating couple of models on test set. A Gaussian process classifier is useful in this uncertain environment.
+ - These word embeddings can be used for our classification task. We already have our dataset split into trains and tests. Good classification model can be identified by evaluating couple of models on test set. A Support vwctor classification (SVC) is useful in this uncertain environment.
 
  ```
- Gaussian = GaussianProcessClassifier(kernel=1.0 * RBF(0.7),random_state=0,max_iter_predict=500)
+ SVC_model = SVC(gamma=2, C=1)
  ```
 - Model result can be observed by using metrics of accuracy score.
 ```
  metrics.accuracy_score(y_test,y_pred)
 
- #output: 0.65
+ #output: ~ 0.57
 ```
 
 # Desclaimer
