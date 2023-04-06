@@ -50,7 +50,7 @@
 - Now, tokenizers help tokenize the words of each sentence and use the Roberta model to convert each tokenized sentence to get the word embedding of it. The architecture of the Roberta model is as follows: Base: Number of transformer blocks: 12, Hidden layer size: 768, Attention heads: 12. The total length of each token embedding is 768. Robrta has 12 layers, so there are a total of 12 different representations of each token with 768 bytes.
 
 
-- The sum of the last six encoders gives good word embedding. This can be deduced by trying a couple of combinations. Currently there is n*768; n is words/tokens in sentence. Mean/Entropy is useful to convert n dim tensor to 1*768 .
+- The sum of the last six encoders gives good word embedding. This can be deduced by trying a couple of combinations. Currently there is 47*768; 47 is words/tokens in sentence. Mean/Entropy is useful to convert 47*768 dim tensor to 1*768 .
 
  ```
  tokenizer=RobertaTokenizer.from_pretrained('roberta-base')
