@@ -6,7 +6,7 @@
   - [Pre-processing](#pre-processing)
   - [Roberta model](#roberta-model)
   - [Classification Model](#classification-model)
-  - [Desclaimer](#desclaimer)
+  - [Disclaimer](#disclaimer)
 
 
 # Description
