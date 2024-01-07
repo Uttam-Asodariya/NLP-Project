@@ -88,5 +88,5 @@ Weight         | Feature
 0.0585 ± 0.0117| Age
 ```
 
-# Desclaimer
+# Disclaimer
 - The notebook is created based on current information and available sources. There are still chances for improvement in the future. Any feedback regarding this notebook is more than welcome.
